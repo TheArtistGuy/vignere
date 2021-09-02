@@ -48,7 +48,7 @@ fn encode(text: &String, key: &String) {
     let mut cipher = Vec::new();
     for i in 0..text_bytes.len(){
         let key_index = i % key_bytes.len();
-        let new_char = char::from((((text_bytes.get(i).unwrap() - 97) + (key_bytes.get(key_index).unwrap() -97)) % 26) + 97).to_ascii_lowercase();
+        let new_char = char::from((((text_bytes.get(i).unwrap() - 97) + (key_bytes.get(key_index).unwrap() -96)) % 26) + 97).to_ascii_lowercase();
         cipher.push(new_char);
     }
     let c : String = cipher.iter().collect();
@@ -69,7 +69,7 @@ fn decode(cipher: &String, key: &String) {
     let mut text = Vec::new();
     for i in 0..cipher_bytes.len() {
         let key_index = i % key_bytes.len();
-        let u = i32::from(cipher_bytes.get(i).unwrap() - 97) - i32::from(key_bytes.get(key_index).unwrap() - 97);
+        let u = i32::from(cipher_bytes.get(i).unwrap() - 97) - i32::from(key_bytes.get(key_index).unwrap() - 96);
         let cipher_number = u8::try_from( if (u < 0) {123 + u} else {u + 97}).unwrap();
         let new_char = char::from(cipher_number).to_ascii_lowercase();
         text.push(new_char);
